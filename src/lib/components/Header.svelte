@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 
 	export let translations: any;
-	export let user: { id: string; email: string; name?: string } | null = null;
+	export let user: { id?: string; email: string; name?: string } | null = null;
 	let isMenuOpen = false;
 	let headerId = Math.random().toString(36).substring(7);
 

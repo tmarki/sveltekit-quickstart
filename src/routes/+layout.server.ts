@@ -23,12 +23,15 @@ export const load: ServerLoad = async ({ request, url, cookies, depends }) => {
 
 	// Get language from URL query param first
 	const urlLang = url.searchParams.get('lang');
+	// Get stored language preference from cookie
+	const storedLang = cookies.get('language');
 
 	// Get browser's preferred language from Accept-Language header
 	const acceptLanguage = request.headers.get('accept-language');
 	console.log('Accept-Language header:', acceptLanguage); // Debug log
 
-	let locale = urlLang;
+	// Determine locale priority: URL param > stored preference > browser language > default
+	let locale = urlLang || storedLang;
 	if (!locale && acceptLanguage) {
 		// Extract primary language code (e.g., 'es-ES' -> 'es')
 		const browserLang = acceptLanguage.split(',')[0].split('-')[0];
@@ -40,6 +43,14 @@ export const load: ServerLoad = async ({ request, url, cookies, depends }) => {
 
 	// Fallback to English if no valid language is detected
 	locale = locale || 'en';
+
+	// Store the selected language in a cookie if it came from URL
+	if (urlLang && ['en', 'es'].includes(urlLang)) {
+		cookies.set('language', urlLang, {
+			path: '/',
+			maxAge: 60 * 60 * 24 * 365 // 1 year
+		});
+	}
 
 	const translations = await initTranslations(locale);
 

@@ -1,17 +1,19 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { language, type SupportedLanguage } from '$lib/i18n/utils';
 
 	let isOpen = false;
 
 	const languages = [
-		{ value: 'en', label: 'English', icon: '🇬🇧' },
-		{ value: 'es', label: 'Español', icon: '🇪🇸' }
+		{ value: 'en' as SupportedLanguage, label: 'English', icon: '🇬🇧' },
+		{ value: 'es' as SupportedLanguage, label: 'Español', icon: '🇪🇸' }
 	];
 
-	function handleSelect(value: string) {
+	function handleSelect(value: SupportedLanguage) {
 		const url = new URL($page.url);
 		url.searchParams.set('lang', value);
+		language.set(value);
 		goto(url.toString());
 		isOpen = false;
 	}
