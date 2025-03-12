@@ -9,6 +9,11 @@
 		"privacy": "Política de Privacidad",
 		"terms": "Términos de Servicio"
 	},
+	"theme": {
+		"light": "Claro",
+		"dark": "Oscuro",
+		"system": "Sistema"
+	},
 	"home": {
 		"welcome": "Bienvenido a nuestro sitio",
 		"description": "Descubre cosas increíbles con nosotros"
@@ -39,6 +44,52 @@
 			"message": "Mensaje",
 			"sending": "Enviando...",
 			"submit": "Enviar Mensaje"
+		}
+	},
+	"privacy": {
+		"title": "Política de Privacidad",
+		"lastUpdated": "Última Actualización: Marzo 2024",
+		"intro": "Tu privacidad es importante para nosotros. Esta Política de Privacidad explica cómo recopilamos, usamos y protegemos tu información personal.",
+		"sections": {
+			"collection": {
+				"title": "Información que Recopilamos",
+				"content": "Recopilamos la información que nos proporcionas directamente, incluyendo nombre, correo electrónico y cualquier otra información que elijas proporcionar."
+			},
+			"use": {
+				"title": "Cómo Usamos tu Información",
+				"content": "Usamos la información que recopilamos para proporcionar y mejorar nuestros servicios, comunicarnos contigo y cumplir con las obligaciones legales."
+			},
+			"sharing": {
+				"title": "Compartir Información",
+				"content": "No vendemos ni compartimos tu información personal con terceros, excepto como se describe en esta política."
+			},
+			"security": {
+				"title": "Seguridad de Datos",
+				"content": "Tomamos medidas razonables para ayudar a proteger tu información personal contra pérdida, robo, mal uso y acceso no autorizado."
+			}
+		}
+	},
+	"terms": {
+		"title": "Términos de Servicio",
+		"lastUpdated": "Última Actualización: Marzo 2024",
+		"intro": "Al acceder o utilizar nuestros servicios, aceptas estar sujeto a estos términos y condiciones.",
+		"sections": {
+			"use": {
+				"title": "Uso Aceptable",
+				"content": "Aceptas usar nuestros servicios solo para fines legales y de acuerdo con estos términos."
+			},
+			"accounts": {
+				"title": "Cuentas de Usuario",
+				"content": "Eres responsable de mantener la seguridad de tu cuenta y de cualquier actividad que ocurra bajo tu cuenta."
+			},
+			"intellectual": {
+				"title": "Propiedad Intelectual",
+				"content": "Todo el contenido y materiales disponibles a través de nuestros servicios están protegidos por derechos de propiedad intelectual."
+			},
+			"liability": {
+				"title": "Limitación de Responsabilidad",
+				"content": "No seremos responsables por daños indirectos, incidentales, especiales, consecuentes o punitivos."
+			}
 		}
 	}
 }

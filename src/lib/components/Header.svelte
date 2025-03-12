@@ -30,12 +30,12 @@
 					class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors"
 					>{translations.header.contact}</a
 				>
-				<ThemeSelector />
+				<ThemeSelector {translations} />
 			</div>
 
 			<!-- Mobile menu button -->
 			<div class="flex items-center space-x-4 md:hidden">
-				<ThemeSelector />
+				<ThemeSelector {translations} />
 				<button
 					type="button"
 					class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-300 hover:text-gray-500 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
