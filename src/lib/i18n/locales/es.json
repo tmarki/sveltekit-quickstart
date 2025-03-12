@@ -12,5 +12,33 @@
 	"home": {
 		"welcome": "Bienvenido a nuestro sitio",
 		"description": "Descubre cosas increíbles con nosotros"
+	},
+	"about": {
+		"title": "Sobre Nosotros",
+		"intro": "Bienvenido a nuestra empresa. Nos dedicamos a...",
+		"mission": {
+			"title": "Nuestra Misión",
+			"description": "Nuestra misión es..."
+		},
+		"values": {
+			"title": "Nuestros Valores",
+			"item1": "Innovación",
+			"item2": "Calidad",
+			"item3": "Integridad",
+			"item4": "Enfoque al Cliente"
+		}
+	},
+	"contact": {
+		"title": "Contáctanos",
+		"intro": "¿Tienes una pregunta o quieres ponerte en contacto? Completa el formulario a continuación y nos pondremos en contacto contigo lo antes posible.",
+		"success": "¡Gracias por tu mensaje! Te responderemos pronto.",
+		"error": "Lo sentimos, hubo un error al enviar tu mensaje. Por favor, inténtalo de nuevo.",
+		"form": {
+			"name": "Nombre",
+			"email": "Correo Electrónico",
+			"message": "Mensaje",
+			"sending": "Enviando...",
+			"submit": "Enviar Mensaje"
+		}
 	}
 }

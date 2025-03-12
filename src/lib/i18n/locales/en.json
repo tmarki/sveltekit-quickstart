@@ -12,5 +12,33 @@
 	"home": {
 		"welcome": "Welcome to our site",
 		"description": "Discover amazing things with us"
+	},
+	"about": {
+		"title": "About Us",
+		"intro": "Welcome to our company. We are dedicated to...",
+		"mission": {
+			"title": "Our Mission",
+			"description": "Our mission is to..."
+		},
+		"values": {
+			"title": "Our Values",
+			"item1": "Innovation",
+			"item2": "Quality",
+			"item3": "Integrity",
+			"item4": "Customer Focus"
+		}
+	},
+	"contact": {
+		"title": "Contact Us",
+		"intro": "Have a question or want to get in touch? Fill out the form below and we'll get back to you as soon as possible.",
+		"success": "Thank you for your message! We'll get back to you soon.",
+		"error": "Sorry, there was an error sending your message. Please try again.",
+		"form": {
+			"name": "Name",
+			"email": "Email",
+			"message": "Message",
+			"sending": "Sending...",
+			"submit": "Send Message"
+		}
 	}
 }
