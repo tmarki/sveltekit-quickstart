@@ -1,0 +1,16 @@
+{
+	"header": {
+		"home": "Inicio",
+		"about": "Sobre Nosotros",
+		"contact": "Contacto"
+	},
+	"footer": {
+		"copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
+		"privacy": "Política de Privacidad",
+		"terms": "Términos de Servicio"
+	},
+	"home": {
+		"welcome": "Bienvenido a nuestro sitio",
+		"description": "Descubre cosas increíbles con nosotros"
+	}
+}

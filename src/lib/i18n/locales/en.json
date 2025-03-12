@@ -1,0 +1,16 @@
+{
+	"header": {
+		"home": "Home",
+		"about": "About",
+		"contact": "Contact"
+	},
+	"footer": {
+		"copyright": "© 2024 Your Company. All rights reserved.",
+		"privacy": "Privacy Policy",
+		"terms": "Terms of Service"
+	},
+	"home": {
+		"welcome": "Welcome to our site",
+		"description": "Discover amazing things with us"
+	}
+}
