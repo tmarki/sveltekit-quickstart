@@ -4,7 +4,8 @@
 		"about": "About",
 		"contact": "Contact",
 		"signIn": "Sign in",
-		"signOut": "Sign out"
+		"signOut": "Sign out",
+		"profile": "Profile"
 	},
 	"footer": {
 		"copyright": "© 2024 Your Company. All rights reserved.",
@@ -104,5 +105,26 @@
 			"success": "Check your email for the magic link!",
 			"error": "Failed to send magic link. Please try again."
 		}
+	},
+	"profile": {
+		"title": "Your Profile",
+		"intro": "Manage your account and subscription settings",
+		"notLoggedIn": "Please log in to view your profile",
+		"updateSuccess": "Profile updated successfully",
+		"personalInfo": "Personal Information",
+		"personalInfoDesc": "Update your personal information and email preferences",
+		"email": "Email",
+		"emailNote": "Your email address cannot be changed",
+		"name": "Full Name",
+		"update": "Update Profile",
+		"updating": "Updating...",
+		"subscription": "Subscription",
+		"subscriptionDesc": "Manage your subscription and billing",
+		"currentPlan": "Current Plan",
+		"upgradePlan": "Upgrade Plan",
+		"features": "Plan Features",
+		"featureBasic": "Basic features included",
+		"featureStorage": "5GB Storage",
+		"featureSupport": "Email Support"
 	}
 }

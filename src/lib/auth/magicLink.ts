@@ -238,7 +238,7 @@ export const verifySession = async (
 	sessionToken: string
 ): Promise<{
 	valid: boolean;
-	user?: { id: string; email: string };
+	user?: { id: string; email: string; name?: string };
 	error?: string;
 }> => {
 	try {
@@ -269,7 +269,8 @@ export const verifySession = async (
 			valid: true,
 			user: {
 				id: session.user.id,
-				email: session.user.email
+				email: session.user.email,
+				name: session.user.name || undefined
 			}
 		};
 	} catch (error) {

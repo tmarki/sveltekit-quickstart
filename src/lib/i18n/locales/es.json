@@ -4,7 +4,8 @@
 		"about": "Sobre Nosotros",
 		"contact": "Contacto",
 		"signIn": "Iniciar sesión",
-		"signOut": "Cerrar sesión"
+		"signOut": "Cerrar sesión",
+		"profile": "Perfil"
 	},
 	"footer": {
 		"copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
@@ -104,5 +105,26 @@
 			"success": "¡Revisa tu correo electrónico para el enlace mágico!",
 			"error": "Error al enviar el enlace mágico. Por favor, inténtalo de nuevo."
 		}
+	},
+	"profile": {
+		"title": "Tu Perfil",
+		"intro": "Administra la configuración de tu cuenta y suscripción",
+		"notLoggedIn": "Por favor, inicia sesión para ver tu perfil",
+		"updateSuccess": "Perfil actualizado exitosamente",
+		"personalInfo": "Información Personal",
+		"personalInfoDesc": "Actualiza tu información personal y preferencias de correo",
+		"email": "Correo Electrónico",
+		"emailNote": "Tu correo electrónico no puede ser cambiado",
+		"name": "Nombre Completo",
+		"update": "Actualizar Perfil",
+		"updating": "Actualizando...",
+		"subscription": "Suscripción",
+		"subscriptionDesc": "Administra tu suscripción y facturación",
+		"currentPlan": "Plan Actual",
+		"upgradePlan": "Mejorar Plan",
+		"features": "Características del Plan",
+		"featureBasic": "Características básicas incluidas",
+		"featureStorage": "5GB de almacenamiento",
+		"featureSupport": "Soporte por correo"
 	}
 }

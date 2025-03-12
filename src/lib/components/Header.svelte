@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 
 	export let translations: any;
-	export let user: { email: string } | null = null;
+	export let user: { id: string; email: string; name?: string } | null = null;
 	let isMenuOpen = false;
 	let headerId = Math.random().toString(36).substring(7);
 
@@ -39,15 +39,22 @@
 					>{translations.header.home}</a
 				>
 				{#if user}
-					<form action="/auth/logout" method="POST" class="flex items-center">
-						<span class="text-sm text-gray-600 dark:text-gray-400 mr-4">{user.email}</span>
-						<button
-							type="submit"
+					<div class="flex items-center space-x-4">
+						<a
+							href="/profile"
 							class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors"
 						>
-							{translations.header.signOut}
-						</button>
-					</form>
+							{translations.header.profile}
+						</a>
+						<form action="/auth/logout" method="POST" class="flex items-center">
+							<button
+								type="submit"
+								class="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 px-3 py-2 text-sm font-medium transition-colors"
+							>
+								{translations.header.signOut}
+							</button>
+						</form>
+					</div>
 				{:else}
 					<a
 						href="/auth/login"
@@ -113,10 +120,13 @@
 						>{translations.header.home}</a
 					>
 					{#if user}
+						<a
+							href="/profile"
+							class="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800"
+						>
+							{translations.header.profile}
+						</a>
 						<form action="/auth/logout" method="POST" class="block">
-							<span class="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-400"
-								>{user.email}</span
-							>
 							<button
 								type="submit"
 								class="block w-full text-left px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800"
