@@ -20,6 +20,11 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   sessions  Session[]
+  stripeCustomerId    String?
+  subscriptionStatus  String?  @default("free") // 'free', 'active', 'canceling', 'past_due', 'canceled'
+  subscriptionId      String?
+  nextBillingDate    DateTime?
+  credits            Int      @default(0)
 }
 
 model Session {

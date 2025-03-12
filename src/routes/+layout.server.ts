@@ -14,6 +14,7 @@ import {
 	SEO_TWITTER_DESCRIPTION,
 	SEO_TWITTER_IMAGE
 } from '$env/static/private';
+import { prisma } from '$lib/server/prisma';
 
 export const load: ServerLoad = async ({ request, url, cookies, depends }) => {
 	// Add dependency on session cookie
@@ -61,7 +62,17 @@ export const load: ServerLoad = async ({ request, url, cookies, depends }) => {
 	if (sessionToken) {
 		const result = await verifySession(sessionToken);
 		if (result.valid && result.user) {
-			user = result.user;
+			// Get full user data from database instead of just session data
+			user = await prisma.user.findUnique({
+				where: { id: result.user.id },
+				select: {
+					id: true,
+					email: true,
+					name: true,
+					credits: true,
+					subscriptionStatus: true
+				}
+			});
 		} else {
 			// Clear invalid session
 			cookies.delete('session', { path: '/' });

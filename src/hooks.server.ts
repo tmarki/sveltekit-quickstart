@@ -1,19 +1,27 @@
-import { verifySession } from '$lib/auth/magicLink';
 import type { Handle } from '@sveltejs/kit';
+import { handleSession } from '$lib/server/session';
 
-export const handle: Handle = async ({ event, resolve }) => {
-	// Get session from cookie
-	const sessionToken = event.cookies.get('session');
+declare global {
+	namespace App {
+		interface Session {
+			userId: string;
+		}
 
-	if (sessionToken) {
-		const result = await verifySession(sessionToken);
-		if (result.valid && result.user) {
-			event.locals.user = result.user;
-		} else {
-			// Clear invalid session
-			event.cookies.delete('session', { path: '/' });
+		interface Locals {
+			getSession: () => Promise<Session | null>;
+			user:
+				| {
+						id: string;
+						email: string;
+						name?: string | null;
+						subscriptionStatus?: string;
+						credits?: number;
+						stripeCustomerId?: string;
+						subscriptionId?: string;
+				  }
+				| undefined;
 		}
 	}
+}
 
-	return resolve(event);
-};
+export const handle: Handle = handleSession;

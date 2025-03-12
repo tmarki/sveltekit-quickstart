@@ -1,0 +1,9 @@
+import {
+	STRIPE_CREDIT_PACK_100_PRICE_ID,
+	STRIPE_MONTHLY_SUBSCRIPTION_PRICE_ID
+} from '$env/static/private';
+
+export const STRIPE_PRICES = {
+	credits: STRIPE_CREDIT_PACK_100_PRICE_ID,
+	subscription: STRIPE_MONTHLY_SUBSCRIPTION_PRICE_ID
+} as const;

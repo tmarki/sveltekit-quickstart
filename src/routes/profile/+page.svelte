@@ -2,11 +2,99 @@
 	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import Footer from '$lib/components/Footer.svelte';
-	export let data;
+	import type { User } from './+page';
+
+	export let data: {
+		user: User | null;
+	};
 
 	let updating = false;
 	let success = false;
 	let error = '';
+	let loading = false;
+
+	$: ({ user } = data);
+
+	const translations = {
+		header: {
+			about: 'About',
+			contact: 'Contact'
+		},
+		footer: {
+			privacy: 'Privacy Policy',
+			terms: 'Terms of Service',
+			copyright: '© 2024 Your Company. All rights reserved.'
+		}
+	};
+
+	function handleSubmit() {
+		updating = true;
+		success = false;
+		error = '';
+
+		return async ({ result }: { result: { type: string; data?: { message: string } } }) => {
+			updating = false;
+			if (result.type === 'success') {
+				success = true;
+				await invalidateAll();
+			} else if (result.type === 'failure' && result.data) {
+				error = result.data.message;
+			}
+		};
+	}
+
+	async function createBillingPortalSession() {
+		try {
+			loading = true;
+			const response = await fetch('/api/stripe/portal', {
+				method: 'POST'
+			});
+			const data = await response.json();
+			if (data.url) {
+				window.location.href = data.url;
+			}
+		} catch (error) {
+			console.error('Error creating billing portal session:', error);
+		} finally {
+			loading = false;
+		}
+	}
+
+	async function createCheckoutSession() {
+		try {
+			loading = true;
+			const response = await fetch('/api/stripe/subscription', {
+				method: 'POST'
+			});
+			const data = await response.json();
+			if (data.url) {
+				window.location.href = data.url;
+			}
+		} catch (error) {
+			console.error('Error creating checkout session:', error);
+		} finally {
+			loading = false;
+		}
+	}
+
+	async function purchaseCredits() {
+		try {
+			loading = true;
+			const response = await fetch('/api/stripe/credits', {
+				method: 'POST'
+			});
+			const data = await response.json();
+			if (data.url) {
+				window.location.href = data.url;
+			}
+		} catch (error) {
+			console.error('Error creating credits checkout session:', error);
+		} finally {
+			loading = false;
+		}
+	}
+
+	$: console.log(user);
 </script>
 
 <div class="min-h-screen flex flex-col">
@@ -15,21 +103,19 @@
 			<h1
 				class="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl"
 			>
-				{data.translations.profile.title}
+				Profile
 			</h1>
 			<p
 				class="mt-3 max-w-md mx-auto text-base text-gray-500 dark:text-gray-400 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl"
 			>
-				{data.translations.profile.intro}
+				Manage your account settings and subscription
 			</p>
 		</div>
 
 		<div class="max-w-2xl mx-auto">
 			{#if success}
 				<div class="bg-green-100 dark:bg-green-900 p-4 rounded-lg mb-8">
-					<p class="text-green-700 dark:text-green-100">
-						{data.translations.profile.updateSuccess}
-					</p>
+					<p class="text-green-700 dark:text-green-100">Profile updated successfully!</p>
 				</div>
 			{/if}
 
@@ -41,168 +127,103 @@
 				</div>
 			{/if}
 
-			{#if !data.user}
+			{#if !user}
 				<div class="bg-yellow-100 dark:bg-yellow-900 p-4 rounded-lg mb-8">
-					<p class="text-yellow-700 dark:text-yellow-100">
-						{data.translations.profile.notLoggedIn}
-					</p>
+					<p class="text-yellow-700 dark:text-yellow-100">Please log in to view your profile.</p>
 					<a
 						href="/auth/login"
 						class="inline-block mt-4 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
 					>
-						{data.translations.auth.signIn.title}
+						Sign In
 					</a>
 				</div>
 			{:else}
-				<div class="bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg">
-					<div class="px-4 py-5 sm:px-6">
-						<h2 class="text-lg font-medium text-gray-900 dark:text-white">
-							{data.translations.profile.personalInfo}
-						</h2>
-						<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-							{data.translations.profile.personalInfoDesc}
-						</p>
-					</div>
+				<div class="flex flex-col gap-4 p-4 bg-white dark:bg-gray-800 rounded-lg shadow">
+					<h2 class="text-2xl font-bold text-gray-900 dark:text-white">Profile Information</h2>
 
-					<form
-						method="POST"
-						action="?/updateProfile"
-						use:enhance={() => {
-							updating = true;
-							success = false;
-							error = '';
-
-							return async ({ result }) => {
-								updating = false;
-								if (result.type === 'success') {
-									success = true;
-									await invalidateAll();
-								} else if (result.type === 'error') {
-									error = result.error;
-								}
-							};
-						}}
-						class="border-t border-gray-200 dark:border-gray-700"
-					>
-						<div class="px-4 py-5 space-y-6 sm:p-6">
-							<div>
-								<label
-									for="email"
-									class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-								>
-									{data.translations.profile.email}
-								</label>
-								<div class="mt-1">
-									<input
-										type="email"
-										name="email"
-										id="email"
-										value={data.user.email}
-										disabled
-										class="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-gray-300 dark:border-gray-600 rounded-md bg-gray-100 dark:bg-gray-700"
-									/>
-								</div>
-								<p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-									{data.translations.profile.emailNote}
-								</p>
-							</div>
-
-							<div>
-								<label
-									for="name"
-									class="block text-sm font-medium text-gray-700 dark:text-gray-300"
-								>
-									{data.translations.profile.name}
-								</label>
-								<div class="mt-1">
-									<input
-										type="text"
-										name="name"
-										id="name"
-										value={data.user.name || ''}
-										class="shadow-sm focus:ring-primary-500 focus:border-primary-500 block w-full sm:text-sm border-2 border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:border-primary-400 dark:hover:border-primary-500"
-									/>
-								</div>
-							</div>
-						</div>
-
-						<div class="px-4 py-3 bg-gray-50 dark:bg-gray-900 text-right sm:px-6">
-							<button
-								type="submit"
-								disabled={updating}
-								class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50"
-							>
-								{#if updating}
-									<svg
-										class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-										xmlns="http://www.w3.org/2000/svg"
-										fill="none"
-										viewBox="0 0 24 24"
-									>
-										<circle
-											class="opacity-25"
-											cx="12"
-											cy="12"
-											r="10"
-											stroke="currentColor"
-											stroke-width="4"
-										/>
-										<path
-											class="opacity-75"
-											fill="currentColor"
-											d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-										/>
-									</svg>
-									{data.translations.profile.updating}
+					<!-- User Info -->
+					<div class="space-y-2">
+						<p class="text-gray-700 dark:text-gray-300">Email: {user.email}</p>
+						<p class="text-gray-700 dark:text-gray-300">Credits: {user.credits}</p>
+						{#if user.subscriptionStatus}
+							<p class="text-gray-700 dark:text-gray-300">
+								Subscription Status:
+								<span class="capitalize">
+									{#if user.subscriptionStatus === 'canceling'}
+										Active (Cancels at period end)
+									{:else}
+										{user.subscriptionStatus}
+									{/if}
+								</span>
+							</p>
+						{/if}
+						{#if user.nextBillingDate}
+							<p class="text-gray-700 dark:text-gray-300">
+								{#if user.subscriptionStatus === 'canceling'}
+									Access Until: {new Date(user.nextBillingDate).toLocaleDateString()}
 								{:else}
-									{data.translations.profile.update}
+									Next Billing Date: {new Date(user.nextBillingDate).toLocaleDateString()}
 								{/if}
-							</button>
-						</div>
-					</form>
-				</div>
+							</p>
+						{/if}
+					</div>
 
-				<div class="mt-8 bg-white dark:bg-gray-800 shadow overflow-hidden rounded-lg">
-					<div class="px-4 py-5 sm:px-6">
-						<h2 class="text-lg font-medium text-gray-900 dark:text-white">
-							{data.translations.profile.subscription}
-						</h2>
-						<p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-							{data.translations.profile.subscriptionDesc}
-						</p>
+					<!-- Subscription Management -->
+					<div class="space-y-4">
+						{#if user.subscriptionStatus === 'active' || user.subscriptionStatus === 'canceling'}
+							<button
+								class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+								on:click={createBillingPortalSession}
+								disabled={loading}
+							>
+								{loading ? 'Loading...' : 'Manage Subscription'}
+							</button>
+						{:else}
+							<button
+								class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+								on:click={createCheckoutSession}
+								disabled={loading}
+							>
+								{loading ? 'Loading...' : 'Subscribe Now'}
+							</button>
+						{/if}
+
+						<!-- Credit Purchase Button -->
+						<button
+							class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+							on:click={purchaseCredits}
+							disabled={loading}
+						>
+							{loading ? 'Loading...' : 'Purchase Credits'}
+						</button>
 					</div>
-					<div class="border-t border-gray-200 dark:border-gray-700 px-4 py-5 sm:p-6">
-						<div class="space-y-4">
-							<div class="flex items-center justify-between">
-								<div>
-									<h3 class="text-lg font-medium text-gray-900 dark:text-white">
-										{data.translations.profile.currentPlan}
-									</h3>
-									<p class="text-sm text-gray-500 dark:text-gray-400">Free Plan</p>
-								</div>
-								<button
-									type="button"
-									class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-								>
-									{data.translations.profile.upgradePlan}
-								</button>
-							</div>
-							<div>
-								<h4 class="text-sm font-medium text-gray-900 dark:text-white">
-									{data.translations.profile.features}
-								</h4>
-								<ul class="mt-2 text-sm text-gray-500 dark:text-gray-400 space-y-2">
-									<li>• {data.translations.profile.featureBasic}</li>
-									<li>• {data.translations.profile.featureStorage}</li>
-									<li>• {data.translations.profile.featureSupport}</li>
-								</ul>
-							</div>
+
+					<!-- User Info Form -->
+					<form method="POST" action="?/updateProfile" use:enhance={handleSubmit} class="space-y-4">
+						<div>
+							<label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+								>Name</label
+							>
+							<input
+								type="text"
+								id="name"
+								name="name"
+								value={user.name || ''}
+								class="px-4 py-2 mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-primary dark:focus:ring-primary sm:text-sm text-center"
+							/>
 						</div>
-					</div>
+						<button
+							type="submit"
+							disabled={updating}
+							class="px-4 py-2 btn btn-primary w-full bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+						>
+							{updating ? 'Updating...' : 'Update Profile'}
+						</button>
+					</form>
 				</div>
 			{/if}
 		</div>
 	</div>
 
-	<Footer translations={data.translations} />
+	<Footer {translations} />
 </div>
