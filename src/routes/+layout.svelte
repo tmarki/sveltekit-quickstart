@@ -1,12 +1,10 @@
 <script lang="ts">
-	import type { LayoutData } from './$types';
 	import { loadTranslations } from '$lib/i18n/utils';
 	import { browser } from '$app/environment';
 	import { initializeTheme } from '$lib/stores/theme';
 	import '../app.css';
-	import { page } from '$app/stores';
 
-	export let data: LayoutData;
+	export let data: App.LayoutData;
 
 	// Handle client-side locale changes
 	$: if (browser && data.locale) {
