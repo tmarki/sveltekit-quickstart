@@ -33,8 +33,11 @@ model Session {
 model MagicLink {
   id        String   @id @default(cuid())
   email     String
-  token     String   @unique
+  csrfToken String   @unique
   expires   DateTime
   createdAt DateTime @default(now())
+
+  @@index([email])
+  @@index([expires])
 }
 

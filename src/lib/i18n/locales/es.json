@@ -2,7 +2,9 @@
 	"header": {
 		"home": "Inicio",
 		"about": "Sobre Nosotros",
-		"contact": "Contacto"
+		"contact": "Contacto",
+		"signIn": "Iniciar sesión",
+		"signOut": "Cerrar sesión"
 	},
 	"footer": {
 		"copyright": "© 2024 Tu Empresa. Todos los derechos reservados.",
@@ -90,6 +92,17 @@
 				"title": "Limitación de Responsabilidad",
 				"content": "No seremos responsables por daños indirectos, incidentales, especiales, consecuentes o punitivos."
 			}
+		}
+	},
+	"auth": {
+		"signIn": {
+			"title": "Inicia sesión en tu cuenta",
+			"subtitle": "Te enviaremos un enlace mágico a tu correo electrónico",
+			"emailPlaceholder": "Correo electrónico",
+			"sendLink": "Enviar enlace mágico",
+			"sending": "Enviando...",
+			"success": "¡Revisa tu correo electrónico para el enlace mágico!",
+			"error": "Error al enviar el enlace mágico. Por favor, inténtalo de nuevo."
 		}
 	}
 }

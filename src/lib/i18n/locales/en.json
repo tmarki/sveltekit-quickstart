@@ -2,7 +2,9 @@
 	"header": {
 		"home": "Home",
 		"about": "About",
-		"contact": "Contact"
+		"contact": "Contact",
+		"signIn": "Sign in",
+		"signOut": "Sign out"
 	},
 	"footer": {
 		"copyright": "© 2024 Your Company. All rights reserved.",
@@ -90,6 +92,17 @@
 				"title": "Limitation of Liability",
 				"content": "We shall not be liable for any indirect, incidental, special, consequential, or punitive damages."
 			}
+		}
+	},
+	"auth": {
+		"signIn": {
+			"title": "Sign in to your account",
+			"subtitle": "We'll send you a magic link to your email",
+			"emailPlaceholder": "Email address",
+			"sendLink": "Send magic link",
+			"sending": "Sending...",
+			"success": "Check your email for the magic link!",
+			"error": "Failed to send magic link. Please try again."
 		}
 	}
 }

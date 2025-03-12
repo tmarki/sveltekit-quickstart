@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap location (uncomment and update when you add a sitemap)
+# Sitemap: https://your-domain.com/sitemap.xml 

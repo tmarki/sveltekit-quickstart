@@ -1,5 +1,6 @@
-import type { LayoutServerLoad } from './$types';
+import type { ServerLoad } from '@sveltejs/kit';
 import { initTranslations } from '$lib/i18n/server';
+import { verifySession } from '$lib/auth/magicLink';
 import {
 	SEO_TITLE,
 	SEO_DESCRIPTION,
@@ -14,8 +15,12 @@ import {
 	SEO_TWITTER_IMAGE
 } from '$env/static/private';
 
-export const load: LayoutServerLoad = async ({ request, url, parent }) => {
-	const { title = SEO_TITLE, description = SEO_DESCRIPTION } = (await parent()) as App.PageData;
+export const load: ServerLoad = async ({ request, url, cookies, depends }) => {
+	// Add dependency on session cookie
+	depends('session');
+
+	const { title = SEO_TITLE, description = SEO_DESCRIPTION } = {} as App.PageData;
+
 	// Get language from URL query param first
 	const urlLang = url.searchParams.get('lang');
 
@@ -38,9 +43,24 @@ export const load: LayoutServerLoad = async ({ request, url, parent }) => {
 
 	const translations = await initTranslations(locale);
 
+	// Verify session and get user data
+	let user = null;
+	const sessionToken = cookies.get('session');
+
+	if (sessionToken) {
+		const result = await verifySession(sessionToken);
+		if (result.valid && result.user) {
+			user = result.user;
+		} else {
+			// Clear invalid session
+			cookies.delete('session', { path: '/' });
+		}
+	}
+
 	return {
 		locale,
 		translations,
+		user,
 		seo: {
 			title,
 			description,

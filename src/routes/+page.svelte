@@ -1,13 +1,9 @@
 <script lang="ts">
-	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-
 	export let data;
 </script>
 
 <div class="min-h-screen flex flex-col">
-	<Header translations={data.translations} />
-
 	<main class="flex-grow">
 		<div class="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
 			<div class="text-center">

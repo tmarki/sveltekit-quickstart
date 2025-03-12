@@ -3,12 +3,25 @@
 	import { browser } from '$app/environment';
 	import { initializeTheme } from '$lib/stores/theme';
 	import '../app.css';
+	import Header from '$lib/components/Header.svelte';
+	import { onMount } from 'svelte';
 
-	export let data: App.LayoutData;
+	export let data: {
+		translations: any;
+		user: { email: string } | null;
+		locale: string;
+		seo: any;
+	};
+
+	onMount(() => {
+		console.log('Layout data:', data);
+		console.log('User data:', data.user);
+	});
 
 	// Handle client-side locale changes
 	$: if (browser && data.locale) {
 		loadTranslations(data.locale);
+		document.documentElement.lang = data.locale;
 	}
 
 	// Initialize theme system
@@ -50,5 +63,8 @@
 <div
 	class="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
 >
-	<slot />
+	<Header translations={data.translations} user={data.user} />
+	<main class="flex-1">
+		<slot />
+	</main>
 </div>
